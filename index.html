@@ -3,81 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Визитка Ergo Proxy</title>
+<title>Ergo Proxy — Личная Визитка</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 body, html {
-  margin:0; padding:0; height:100%; font-family:'Orbitron', sans-serif; overflow:hidden; background:#000; color:#eee;
+  margin: 0; padding: 0; width: 100%; height: 100%;
+  font-family: 'Orbitron', sans-serif;
+  background: #000; color: #eee; overflow: hidden;
 }
 
-/* Фоновое видео */
+/* Фоновое видео трейлера */
 #bgVideo {
-  position: fixed; top:0; left:0; width:100%; height:100%; z-index:-3; opacity:0.5; pointer-events:none;
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -3; opacity: 0.5; pointer-events: none;
 }
 
-/* Арт фон персонажей с parallax */
+/* Арт‑фон */
 #artBackground {
-  position: fixed; top:0; left:0; width:100%; height:100%; z-index:-2;
-  background: url('https://i.ibb.co/x7Y9QdG/ergoproxy-art.png') no-repeat center center;
-  background-size: cover;
-  transform: translateZ(0);
-  transition: transform 0.2s;
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: url('https://i.ibb.co/x7Y9QdG/ergoproxy-art.png') center/cover no-repeat;
+  z-index: -2;
 }
 
-/* Частицы дождя */
+/* Эффект дождя */
 .raindrop {
   position: absolute;
-  width:2px; height:12px;
-  background: rgba(180,180,255,0.6);
+  width: 1.5px; height: 12px;
+  background: rgba(180, 180, 255, 0.6);
   animation: fall linear infinite;
 }
 @keyframes fall {
-  0% { transform: translateY(-20px); opacity:0.6; }
-  100% { transform: translateY(110vh); opacity:0; }
+  0% { transform: translateY(-10px); opacity: 0.6; }
+  100% { transform: translateY(110vh); opacity: 0; }
 }
 
 /* Карточка визитки */
 .card {
-  position: relative; max-width:700px; margin:60px auto; padding:40px;
-  background: rgba(10,10,20,0.75); border-radius:25px; backdrop-filter:blur(12px);
-  box-shadow:0 0 25px #000; text-align:center; z-index:1;
+  position: relative;
+  max-width: 700px;
+  margin: 60px auto;
+  padding: 45px;
+  background: rgba(10, 10, 20, 0.75);
+  backdrop-filter: blur(14px);
+  border-radius: 22px;
+  text-align: center;
+  box-shadow: 0 0 25px #000;
 }
 
-/* Аватар */
+/* Аватар (Рил Mayer) */
 .avatar {
-  width:140px; height:140px; margin:0 auto 20px;
-  border-radius:50%; background:#222; box-shadow:0 0 20px #9b4db5;
-  display:flex; align-items:center; justify-content:center; font-size:3rem; color:#fff;
-  animation: glowPulse 3s ease-in-out infinite alternate;
-}
-@keyframes glowPulse {
-  0% { box-shadow:0 0 15px #9b4db5; }
-  50% { box-shadow:0 0 35px #c34ddb; }
-  100% { box-shadow:0 0 15px #9b4db5; }
+  width: 150px; height: 150px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: url('https://i.ibb.co/v1y9n1Y/rel-mayer-avatar.png') center/cover no-repeat;
+  box-shadow: 0 0 35px #c34ddb;
 }
 
 /* Ссылки */
 .links a {
-  display:block; margin:10px 0; text-decoration:none; color:#fff;
-  padding:12px; background: rgba(50,0,50,0.5); border-radius:12px; transition:0.3s;
+  display: block; margin: 12px 0;
+  padding: 14px; text-decoration: none;
+  background: rgba(80, 0, 80, 0.5);
+  border-radius: 12px;
+  transition: 0.3s;
+  color: #fff;
 }
-.links a:hover { background:#9b4db5; transform:scale(1.05); }
+.links a:hover {
+  background: #9b4db5;
+  transform: scale(1.05);
+}
+.links i { margin-right: 8px; }
 </style>
 </head>
 <body>
 
-<!-- Видео трейлер -->
-<iframe id="bgVideo" src="https://www.youtube.com/embed/47LU6BJxVxA?autoplay=1&mute=1&loop=1&playlist=47LU6BJxVxA" frameborder="0" allow="autoplay; fullscreen"></iframe>
+<!-- Фоновое видео трейлера -->
+<iframe id="bgVideo"
+  src="https://www.youtube.com/embed/47LU6BJxVxA?autoplay=1&mute=1&loop=1&playlist=47LU6BJxVxA"
+  frameborder="0" allow="autoplay; fullscreen"></iframe>
 
 <!-- Арт фон -->
 <div id="artBackground"></div>
 
 <!-- Дождь -->
 <script>
-for(let i=0;i<120;i++){
+for (let i = 0; i < 120; i++) {
   const drop = document.createElement('div');
   drop.className = 'raindrop';
   drop.style.left = Math.random()*100+'vw';
@@ -87,31 +102,24 @@ for(let i=0;i<120;i++){
 }
 </script>
 
-<!-- Фоновая музыка -->
-<audio autoplay loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
+<!-- Музыка OST Kiri (скрытый YouTube плеер) -->
+<iframe style="display:none"
+  src="https://www.youtube.com/embed/XPGAbw9Y3Lk?autoplay=1&loop=1&playlist=XPGAbw9Y3Lk"
+  allow="autoplay"></iframe>
 
-<!-- Визитка -->
+<!-- Карточка визитки -->
 <div class="card">
-  <div class="avatar">R</div>
+  <div class="avatar"></div>
   <h1>Ваше Имя</h1>
-  <p>Личная визитка · Ergo Proxy Style</p>
+  <p>Личная визитка по мотивам *Ergo Proxy*</p>
   <div class="links">
-    <a href="https://t.me/username" target="_blank"><i class="fa-brands fa-telegram"></i> Telegram</a>
-    <a href="https://instagram.com/username" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
-    <a href="mailto:email@example.com"><i class="fa-solid fa-envelope"></i> Email</a>
+    <a href="https://t.me/username" target="_blank"><i class="fa-brands fa-telegram"></i>Telegram</a>
+    <a href="https://instagram.com/username" target="_blank"><i class="fa-brands fa-instagram"></i>Instagram</a>
+    <a href="mailto:email@example.com"><i class="fa-solid fa-envelope"></i>Email</a>
+    <a href="https://www.youtube.com/@ergoproxy4970" target="_blank"><i class="fa-brands fa-youtube"></i>Ergo Proxy Channel</a>
   </div>
 </div>
 
-<script>
-// Parallax движение арт-фона при движении мыши
-document.addEventListener('mousemove', e => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 20;
-  const y = (e.clientY / window.innerHeight - 0.5) * 20;
-  document.getElementById('artBackground').style.transform = `translate(${x}px, ${y}px)`;
-});
-</script>
-
 </body>
 </html>
+
