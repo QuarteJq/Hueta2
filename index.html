@@ -9,66 +9,85 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-body, html { margin:0; padding:0; height:100%; font-family: 'Orbitron', sans-serif; overflow:hidden; color:#eee; background:#000; }
+body, html {
+  margin:0; padding:0; height:100%; font-family:'Orbitron', sans-serif; overflow:hidden; background:#000; color:#eee;
+}
 
-/* Видео фона */
-#bgVideo { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-2; opacity:0.6; pointer-events:none; }
+/* Фоновое видео */
+#bgVideo {
+  position: fixed; top:0; left:0; width:100%; height:100%; z-index:-3; opacity:0.5; pointer-events:none;
+}
 
-/* Арт фон с персонажами (parallax) */
-#artBackground { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-1; background: url('https://i.ibb.co/x7Y9QdG/ergoproxy-art.png') no-repeat center center; background-size: cover; transform: translateZ(0); }
+/* Арт фон персонажей с parallax */
+#artBackground {
+  position: fixed; top:0; left:0; width:100%; height:100%; z-index:-2;
+  background: url('https://i.ibb.co/x7Y9QdG/ergoproxy-art.png') no-repeat center center;
+  background-size: cover;
+  transform: translateZ(0);
+  transition: transform 0.2s;
+}
+
+/* Частицы дождя */
+.raindrop {
+  position: absolute;
+  width:2px; height:12px;
+  background: rgba(180,180,255,0.6);
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  0% { transform: translateY(-20px); opacity:0.6; }
+  100% { transform: translateY(110vh); opacity:0; }
+}
 
 /* Карточка визитки */
 .card {
-  position: relative;
-  max-width:700px;
-  margin: 60px auto;
-  padding:40px;
-  background: rgba(10,10,20,0.75);
-  border-radius: 25px;
-  backdrop-filter: blur(12px);
-  box-shadow:0 0 25px #000;
-  text-align:center;
+  position: relative; max-width:700px; margin:60px auto; padding:40px;
+  background: rgba(10,10,20,0.75); border-radius:25px; backdrop-filter:blur(12px);
+  box-shadow:0 0 25px #000; text-align:center; z-index:1;
 }
 
 /* Аватар */
 .avatar {
-  width:140px;
-  height:140px;
-  margin:0 auto 20px;
-  border-radius:50%;
-  background:#222;
-  box-shadow:0 0 20px #9b4db5;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:3rem;
-  color:#fff;
+  width:140px; height:140px; margin:0 auto 20px;
+  border-radius:50%; background:#222; box-shadow:0 0 20px #9b4db5;
+  display:flex; align-items:center; justify-content:center; font-size:3rem; color:#fff;
+  animation: glowPulse 3s ease-in-out infinite alternate;
+}
+@keyframes glowPulse {
+  0% { box-shadow:0 0 15px #9b4db5; }
+  50% { box-shadow:0 0 35px #c34ddb; }
+  100% { box-shadow:0 0 15px #9b4db5; }
 }
 
 /* Ссылки */
 .links a {
-  display:block;
-  margin:10px 0;
-  text-decoration:none;
-  color:#fff;
-  padding:12px;
-  background: rgba(50,0,50,0.5);
-  border-radius:12px;
-  transition:0.3s;
+  display:block; margin:10px 0; text-decoration:none; color:#fff;
+  padding:12px; background: rgba(50,0,50,0.5); border-radius:12px; transition:0.3s;
 }
 .links a:hover { background:#9b4db5; transform:scale(1.05); }
 </style>
 </head>
-
 <body>
 
 <!-- Видео трейлер -->
 <iframe id="bgVideo" src="https://www.youtube.com/embed/47LU6BJxVxA?autoplay=1&mute=1&loop=1&playlist=47LU6BJxVxA" frameborder="0" allow="autoplay; fullscreen"></iframe>
 
-<!-- Арт фон с персонажами -->
+<!-- Арт фон -->
 <div id="artBackground"></div>
 
-<!-- Фоновая музыка OST Kiri -->
+<!-- Дождь -->
+<script>
+for(let i=0;i<120;i++){
+  const drop = document.createElement('div');
+  drop.className = 'raindrop';
+  drop.style.left = Math.random()*100+'vw';
+  drop.style.animationDuration = (Math.random()*1+0.5)+'s';
+  drop.style.top = Math.random()*-100+'vh';
+  document.body.appendChild(drop);
+}
+</script>
+
+<!-- Фоновая музыка -->
 <audio autoplay loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
@@ -84,6 +103,15 @@ body, html { margin:0; padding:0; height:100%; font-family: 'Orbitron', sans-ser
     <a href="mailto:email@example.com"><i class="fa-solid fa-envelope"></i> Email</a>
   </div>
 </div>
+
+<script>
+// Parallax движение арт-фона при движении мыши
+document.addEventListener('mousemove', e => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+  document.getElementById('artBackground').style.transform = `translate(${x}px, ${y}px)`;
+});
+</script>
 
 </body>
 </html>
